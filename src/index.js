@@ -4,6 +4,7 @@ const apiRoutes = require("./routes");
 const dotenv = require("dotenv");
 dotenv.config();
 const PORT = process.env.PORT;
+const PRODUCT_URL = process.env.PRODUCT_URL;
 
 console.log(process.env.PORT);
 
@@ -20,12 +21,10 @@ async function fetchAndStoreProducts(url) {
       const existingProduct = await Product.findOne({ id: product.id });
 
       if (existingProduct) {
-        // Product already exists, you can update it if necessary
         console.log(
           `Product with ID ${product.id} already exists in the database. Skipping.`
         );
       } else {
-        // Product does not exist, insert it into the database
         await Product.create(product);
         console.log(
           `Product with ID ${product.id} inserted into the database.`
@@ -51,9 +50,7 @@ app.listen(PORT, async () => {
     await connect();
     console.log(process.env.PORT);
     console.log("MongoDB connected");
-    await fetchAndStoreProducts(
-      "https://64e0caef50713530432cafa1.mockapi.io/api/products"
-    );
+    await fetchAndStoreProducts(PRODUCT_URL);
   } catch (error) {
     console.error("Failed to connect to MongoDB:", error);
   }

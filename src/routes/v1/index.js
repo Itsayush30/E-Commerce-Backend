@@ -1,13 +1,16 @@
 const express = require("express");
 
-const {adminsignin, createAdmin} = require("../../controllers/admin-controller");
-const{usersignin, createUser} = require("../../controllers/user-controller")
+const {
+  adminsignin,
+  createAdmin,
+} = require("../../controllers/admin-controller");
+const { usersignin, createUser } = require("../../controllers/user-controller");
+const getAllProducts = require("../../controllers/product-controller");
 
 const {
   validateAuthRequest,
   checkAuth,
 } = require("../../middlewares/auth-request-middleware");
-
 
 const router = express.Router();
 
@@ -23,5 +26,7 @@ router.post("/admin/signin", validateAuthRequest, adminsignin);
 // /api/v1/user/signin POST
 router.post("/user/signin", validateAuthRequest, usersignin);
 
+// /api/v1/products POST
+router.get("/products", getAllProducts);
 
 module.exports = router;
