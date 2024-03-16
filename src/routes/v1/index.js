@@ -5,7 +5,7 @@ const {
   createAdmin,
 } = require("../../controllers/admin-controller");
 const { usersignin, createUser } = require("../../controllers/user-controller");
-const getAllProducts = require("../../controllers/product-controller");
+const {getAllProducts, updateProduct} = require("../../controllers/product-controller");
 
 const {
   validateAuthRequest,
@@ -27,6 +27,9 @@ router.post("/admin/signin", validateAuthRequest, adminsignin);
 router.post("/user/signin", validateAuthRequest, usersignin);
 
 // /api/v1/products POST
-router.get("/products", getAllProducts);
+router.get("/products",checkAuth, getAllProducts);
+
+// /api/v1/products/:id PUT
+router.put("/products/:id",checkAuth, updateProduct);
 
 module.exports = router;

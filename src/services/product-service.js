@@ -23,5 +23,26 @@ class ProductService {
       );
     }
   }
+
+  async updateProduct(productId, updatedProductData) {
+    try {
+      const products = await this.productRepository.updateProduct(
+        productId,
+        updatedProductData
+      );
+      console.log("here",products);
+      if (!products) {
+        throw new AppError("No products found", StatusCodes.NOT_FOUND);
+      }
+      return products;
+    } catch (error) {
+      if (error instanceof AppError) throw error;
+      console.log(error);
+      throw new AppError(
+        "Something went wrong",
+        StatusCodes.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
 }
 module.exports = ProductService;

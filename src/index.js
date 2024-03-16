@@ -1,6 +1,7 @@
 const express = require("express");
 const connect = require("./config/database");
 const apiRoutes = require("./routes");
+const cors = require("cors"); // Import the cors middleware
 const dotenv = require("dotenv");
 dotenv.config();
 const PORT = process.env.PORT;
@@ -8,7 +9,7 @@ const PRODUCT_URL = process.env.PRODUCT_URL;
 
 console.log(process.env.PORT);
 
-//const fetch = require("node-fetch"); // for making HTTP requests
+// const fetch = require("node-fetch"); // for making HTTP requests
 const Product = require("./models/product"); // Import the Product model
 
 async function fetchAndStoreProducts(url) {
@@ -41,6 +42,9 @@ async function fetchAndStoreProducts(url) {
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Add CORS middleware to allow requests from all origins
+app.use(cors());
 
 app.use("/api", apiRoutes);
 
