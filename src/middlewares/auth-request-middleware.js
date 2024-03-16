@@ -2,12 +2,10 @@ const { StatusCodes } = require("http-status-codes");
 
 const { ErrorResponse } = require("../utils/common");
 const AppError = require("../utils/errors/app-error");
-
-const AdminService = require("../services/admin-service");
-const adminService = new AdminService();
+const { isAuthenticated } = require("../utils/common/auth");
 
 function validateAuthRequest(req, res, next) {
-    //console.log("middleware1")
+  //console.log("middleware1")
   if (!req.body.email) {
     //console.log("middleware2",ErrorResponse)
     ErrorResponse.message = "Something went wrong while authenticating user";
@@ -30,11 +28,9 @@ function validateAuthRequest(req, res, next) {
 
 async function checkAuth(req, res, next) {
   try {
-    const response = await adminService .isAuthenticated(
-      req.headers["x-access-token"]
-    );
+    const response = await isAuthenticated(req.headers["x-access-token"]);
     if (response) {
-      console.log("auth",response)
+      console.log("auth", response);
       req.user = response; // setting the user id in the req object
       next();
     }
