@@ -19,6 +19,19 @@ class ReviewService {
       );
     }
   }
+
+  async countReview() {
+    try {
+      const review = await this.reviewRepository.countReview();
+      return review;
+    } catch (error) {
+      throw new AppError(
+        "cannot count a new review",
+        StatusCodes.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
 }
 
 module.exports = ReviewService;
