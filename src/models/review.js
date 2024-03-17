@@ -26,10 +26,14 @@ const reviewSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
+    status: {
+      type: String,
+      enum: ["approved", "rejected", "pending"],
+      default: "pending",
+    },
   },
   { timestamps: true }
 );
 
-
-const Review = mongoose.model("Review", reviewSchema); //creating model
+const Review = mongoose.model("Review", reviewSchema); // Creating model
 module.exports = Review;
