@@ -16,18 +16,7 @@ class ReviewRepository extends CrudRepository {
     }
   }
 
-  async getReviewById(data) {
-    try {
-      console.log("repo", data);
-      const result = await Review.find(data);
-      return result;
-    } catch (error) {
-      console.log("Something went wrong in crud repo");
-      throw error;
-    }
-  }
-
-  async getAllPending(data) {
+  async find(data) {
     try {
       console.log("repo", data);
       const result = await Review.find(data);

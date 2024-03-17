@@ -34,7 +34,7 @@ class ReviewService {
 
   async getAllPendingReviews(data) {
     try {
-      const products = await this.reviewRepository.getAllPending(data);
+      const products = await this.reviewRepository.find(data);
       if (!products) {
         throw new AppError("No reviews found", StatusCodes.NOT_FOUND);
       }
@@ -51,7 +51,7 @@ class ReviewService {
 
   async getReviewById(data) {
     try {
-      const products = await this.reviewRepository.getReviewById(data);
+      const products = await this.reviewRepository.find(data);
       if (!products) {
         throw new AppError("No review found", StatusCodes.NOT_FOUND);
       }
@@ -94,6 +94,23 @@ class ReviewService {
       );
       if (!products) {
         throw new AppError("Not rejected", StatusCodes.NOT_FOUND);
+      }
+      return products;
+    } catch (error) {
+      if (error instanceof AppError) throw error;
+      console.log(error);
+      throw new AppError(
+        "Something went wrong",
+        StatusCodes.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
+  async getReviewByUserId(data) {
+    try {
+      const products = await this.reviewRepository.find(data);
+      if (!products) {
+        throw new AppError("No reviews found", StatusCodes.NOT_FOUND);
       }
       return products;
     } catch (error) {

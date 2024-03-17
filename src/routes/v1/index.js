@@ -12,7 +12,7 @@ const {
   checkAuth,
 } = require("../../middlewares/auth-request-middleware");
 
-const {createReview, countReview, getAllPendingReviews, getReviewById, rejected, approved} = require("../../controllers/review-controller")
+const {createReview, countReview, getAllPendingReviews, getReviewById, rejected, approved, getReviewByUserId} = require("../../controllers/review-controller")
 
 const router = express.Router();
 
@@ -32,16 +32,16 @@ router.post("/user/signin", validateAuthRequest, usersignin);
 router.get("/products",checkAuth, getAllProducts);
 
 // /api/v1/products/:id PUT
-router.put("/products/:id",checkAuth, updateProduct);
+router.put("/products/:id", updateProduct);
 
 // /api/v1/review POST
-router.post("/review/:id", createReview);
+router.post("/review/:id", checkAuth,createReview);
 
 // /api/v1/review/count GET
 router.get("/review/count", countReview);
 
 // /api/v1/review/all GET
-router.get("/review/all", getAllPendingReviews);
+router.get("/review/pending", getAllPendingReviews);
 
 // /api/v1/review/:id GET
 router.get("/review/:id", getReviewById);
@@ -51,6 +51,10 @@ router.post("/reject/:id", rejected);
 
 // /api/v1/approve/:id GET
 router.post("/approve/:id", approved);
+
+// /api/v1/profilereview GET
+router.get("/profilereview", checkAuth,getReviewByUserId);
+
 
 
 module.exports = router;

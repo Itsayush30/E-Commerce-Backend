@@ -8,6 +8,7 @@ const createReview = async (req, res) => {
     console.log("HERE", req.body);
     const response = await reviewService.create({
       ...req.body,
+      userId: req.user,
       id: req.params.id,
     });
     SuccessResponse.data = response;
@@ -60,7 +61,7 @@ async function getReviewById(req, res) {
 async function rejected(req, res) {
   try {
     const productId = req.params.id;
-    const updatedProductData = {status:"rejected"};
+    const updatedProductData = { status: "rejected" };
     console.log("params", req.params.id);
     const products = await reviewService.rejected(
       productId,
@@ -76,22 +77,37 @@ async function rejected(req, res) {
 }
 
 async function approved(req, res) {
-    try {
-      const productId = req.params.id;
-      const updatedProductData = {status:"approved"};
-      console.log("params", req.params.id);
-      const products = await reviewService.approved(
-        productId,
-        updatedProductData
-      );
-      SuccessResponse.data = products;
-      return res.status(StatusCodes.CREATED).json(SuccessResponse);
-    } catch (error) {
-      console.log(error);
-      ErrorResponse.error = error;
-      return res.status(error.statusCode).json(ErrorResponse);
-    }
+  try {
+    const productId = req.params.id;
+    const updatedProductData = { status: "approved" };
+    console.log("params", req.params.id);
+    const products = await reviewService.approved(
+      productId,
+      updatedProductData
+    );
+    SuccessResponse.data = products;
+    return res.status(StatusCodes.CREATED).json(SuccessResponse);
+  } catch (error) {
+    console.log(error);
+    ErrorResponse.error = error;
+    return res.status(error.statusCode).json(ErrorResponse);
   }
+}
+
+async function getReviewByUserId(req, res) {
+  try {
+    console.log("params", req.user);
+    const products = await reviewService.getReviewByUserId({
+      userId: req.user,
+    });
+    SuccessResponse.data = products;
+    return res.status(StatusCodes.CREATED).json(SuccessResponse);
+  } catch (error) {
+    console.log(error);
+    ErrorResponse.error = error;
+    return res.status(error.statusCode).json(ErrorResponse);
+  }
+}
 
 module.exports = {
   createReview,
@@ -100,4 +116,5 @@ module.exports = {
   getReviewById,
   rejected,
   approved,
+  getReviewByUserId,
 };

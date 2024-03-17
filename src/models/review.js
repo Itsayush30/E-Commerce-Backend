@@ -26,6 +26,11 @@ const reviewSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
     status: {
       type: String,
       enum: ["approved", "rejected", "pending"],
