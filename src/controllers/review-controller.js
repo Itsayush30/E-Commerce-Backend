@@ -31,9 +31,59 @@ const countReview = async (req, res) => {
   }
 };
 
-async function getAllReviews(req, res) {
+async function getAllPendingReviews(req, res) {
+  try {
+    const data = { status: "pending" };
+    const products = await reviewService.getAllPendingReviews(data);
+    SuccessResponse.data = products;
+    return res.status(StatusCodes.CREATED).json(SuccessResponse);
+  } catch (error) {
+    console.log(error);
+    ErrorResponse.error = error;
+    return res.status(error.statusCode).json(ErrorResponse);
+  }
+}
+
+async function getReviewById(req, res) {
+  try {
+    console.log("params", req.params);
+    const products = await reviewService.getReviewById(req.params);
+    SuccessResponse.data = products;
+    return res.status(StatusCodes.CREATED).json(SuccessResponse);
+  } catch (error) {
+    console.log(error);
+    ErrorResponse.error = error;
+    return res.status(error.statusCode).json(ErrorResponse);
+  }
+}
+
+async function rejected(req, res) {
+  try {
+    const productId = req.params.id;
+    const updatedProductData = {status:"rejected"};
+    console.log("params", req.params.id);
+    const products = await reviewService.rejected(
+      productId,
+      updatedProductData
+    );
+    SuccessResponse.data = products;
+    return res.status(StatusCodes.CREATED).json(SuccessResponse);
+  } catch (error) {
+    console.log(error);
+    ErrorResponse.error = error;
+    return res.status(error.statusCode).json(ErrorResponse);
+  }
+}
+
+async function approved(req, res) {
     try {
-      const products = await reviewService.getAllReviews();
+      const productId = req.params.id;
+      const updatedProductData = {status:"approved"};
+      console.log("params", req.params.id);
+      const products = await reviewService.approved(
+        productId,
+        updatedProductData
+      );
       SuccessResponse.data = products;
       return res.status(StatusCodes.CREATED).json(SuccessResponse);
     } catch (error) {
@@ -43,4 +93,11 @@ async function getAllReviews(req, res) {
     }
   }
 
-module.exports = { createReview, countReview, getAllReviews };
+module.exports = {
+  createReview,
+  countReview,
+  getAllPendingReviews,
+  getReviewById,
+  rejected,
+  approved,
+};

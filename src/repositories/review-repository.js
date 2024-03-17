@@ -15,6 +15,43 @@ class ReviewRepository extends CrudRepository {
       throw error;
     }
   }
+
+  async getReviewById(data) {
+    try {
+      console.log("repo", data);
+      const result = await Review.find(data);
+      return result;
+    } catch (error) {
+      console.log("Something went wrong in crud repo");
+      throw error;
+    }
+  }
+
+  async getAllPending(data) {
+    try {
+      console.log("repo", data);
+      const result = await Review.find(data);
+      return result;
+    } catch (error) {
+      console.log("Something went wrong in crud repo");
+      throw error;
+    }
+  }
+
+  async updateStatus(productId, updatedProductData) {
+    try {
+      console.log("repo");
+      const result = await Review.findOneAndUpdate(
+        { id: productId },
+        updatedProductData,
+        { new: true }
+      );
+      return result;
+    } catch (error) {
+      console.log("Something went wrong in crud repo");
+      throw error;
+    }
+  }
 }
 
 module.exports = ReviewRepository;

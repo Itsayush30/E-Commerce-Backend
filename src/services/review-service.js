@@ -9,7 +9,7 @@ class ReviewService {
 
   async create(data) {
     try {
-      console.log("data",data);
+      console.log("data", data);
       const review = await this.reviewRepository.create(data);
       return review;
     } catch (error) {
@@ -32,12 +32,68 @@ class ReviewService {
     }
   }
 
-
-  async getAllReviews() {
+  async getAllPendingReviews(data) {
     try {
-      const products = await this.reviewRepository.getAll();
+      const products = await this.reviewRepository.getAllPending(data);
       if (!products) {
         throw new AppError("No reviews found", StatusCodes.NOT_FOUND);
+      }
+      return products;
+    } catch (error) {
+      if (error instanceof AppError) throw error;
+      console.log(error);
+      throw new AppError(
+        "Something went wrong",
+        StatusCodes.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
+  async getReviewById(data) {
+    try {
+      const products = await this.reviewRepository.getReviewById(data);
+      if (!products) {
+        throw new AppError("No review found", StatusCodes.NOT_FOUND);
+      }
+      return products;
+    } catch (error) {
+      if (error instanceof AppError) throw error;
+      console.log(error);
+      throw new AppError(
+        "Something went wrong",
+        StatusCodes.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
+  async rejected(productId, updatedProductData) {
+    try {
+      const products = await this.reviewRepository.updateStatus(
+        productId,
+        updatedProductData
+      );
+      if (!products) {
+        throw new AppError("not rejected", StatusCodes.NOT_FOUND);
+      }
+      return products;
+    } catch (error) {
+      if (error instanceof AppError) throw error;
+      console.log(error);
+      throw new AppError(
+        "Something went wrong",
+        StatusCodes.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
+  async approved(productId, updatedProductData) {
+    try {
+      const products = await this.reviewRepository.updateStatus(
+        productId,
+        updatedProductData
+      );
+      if (!products) {
+        throw new AppError("Not rejected", StatusCodes.NOT_FOUND);
       }
       return products;
     } catch (error) {
