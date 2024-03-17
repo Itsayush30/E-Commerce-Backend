@@ -5,7 +5,8 @@ const reviewService = new ReviewService();
 
 const createReview = async (req, res) => {
   try {
-    const response = await reviewService.create(req.body);
+    console.log("HERE",req.body)
+    const response = await reviewService.create({ ...req.body, id: req.params.id });
     SuccessResponse.data = response;
     return res.status(StatusCodes.CREATED).json(SuccessResponse);
   } catch (error) {

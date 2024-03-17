@@ -35,6 +35,6 @@ router.get("/products",checkAuth, getAllProducts);
 router.put("/products/:id",checkAuth, updateProduct);
 
 // /api/v1/review POST
-router.post("/review", createReview);
+router.post("/review/:id", createReview);
 
 module.exports = router;
