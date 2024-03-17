@@ -31,4 +31,16 @@ const countReview = async (req, res) => {
   }
 };
 
-module.exports = { createReview, countReview };
+async function getAllReviews(req, res) {
+    try {
+      const products = await reviewService.getAllReviews();
+      SuccessResponse.data = products;
+      return res.status(StatusCodes.CREATED).json(SuccessResponse);
+    } catch (error) {
+      console.log(error);
+      ErrorResponse.error = error;
+      return res.status(error.statusCode).json(ErrorResponse);
+    }
+  }
+
+module.exports = { createReview, countReview, getAllReviews };

@@ -32,6 +32,24 @@ class ReviewService {
     }
   }
 
+
+  async getAllReviews() {
+    try {
+      const products = await this.reviewRepository.getAll();
+      if (!products) {
+        throw new AppError("No reviews found", StatusCodes.NOT_FOUND);
+      }
+      return products;
+    } catch (error) {
+      if (error instanceof AppError) throw error;
+      console.log(error);
+      throw new AppError(
+        "Something went wrong",
+        StatusCodes.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
 }
 
 module.exports = ReviewService;

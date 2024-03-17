@@ -12,7 +12,7 @@ const {
   checkAuth,
 } = require("../../middlewares/auth-request-middleware");
 
-const {createReview, countReview} = require("../../controllers/review-controller")
+const {createReview, countReview, getAllReviews} = require("../../controllers/review-controller")
 
 const router = express.Router();
 
@@ -39,5 +39,8 @@ router.post("/review/:id", createReview);
 
 // /api/v1/review/count GET
 router.get("/review/count", countReview);
+
+// /api/v1/review/all GET
+router.get("/review/all", getAllReviews);
 
 module.exports = router;
