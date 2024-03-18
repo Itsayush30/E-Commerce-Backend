@@ -61,8 +61,8 @@ async function getReviewById(req, res) {
 async function rejected(req, res) {
   try {
     const productId = req.params.id;
-    const updatedProductData = { status: "rejected" };
-    console.log("params", req.params.id);
+    const updatedProductData = { status: "rejected",adminId: req.user };
+    console.log("paramsAdmin", req.user);
     const products = await reviewService.rejected(
       productId,
       updatedProductData
@@ -74,7 +74,7 @@ async function rejected(req, res) {
     ErrorResponse.error = error;
     return res.status(error.statusCode).json(ErrorResponse);
   }
-}
+} 
 
 async function approved(req, res) {
   try {

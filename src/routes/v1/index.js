@@ -47,10 +47,10 @@ router.get("/review/pending", getAllPendingReviews);
 router.get("/review/:id", getReviewById);
 
 // /api/v1/reject/:id GET
-router.post("/reject/:id", rejected);
+router.post("/reject/:id", checkAuth,rejected);
 
 // /api/v1/approve/:id GET
-router.post("/approve/:id", approved);
+router.post("/approve/:id", checkAuth,approved);
 
 // /api/v1/profilereview GET
 router.get("/profilereview", checkAuth,getReviewByUserId);

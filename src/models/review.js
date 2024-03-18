@@ -31,6 +31,10 @@ const reviewSchema = mongoose.Schema(
       ref: "User",
       required: true,
     },
+    adminId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Admin",
+    },
     status: {
       type: String,
       enum: ["approved", "rejected", "pending"],
