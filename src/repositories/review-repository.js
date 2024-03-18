@@ -6,9 +6,9 @@ class ReviewRepository extends CrudRepository {
     super(Review);
   }
 
-  async countReview() {
+  async countReview(data) {
     try {
-      const result = await Review.countDocuments();
+      const result = await Review.countDocuments(data);
       return result;
     } catch (error) {
       console.log("Something went wrong in crud repo");

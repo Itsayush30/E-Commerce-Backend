@@ -34,8 +34,7 @@ const countReview = async (req, res) => {
 
 async function getAllPendingReviews(req, res) {
   try {
-    const data = { status: "pending" };
-    const products = await reviewService.getAllPendingReviews(data);
+    const products = await reviewService.getAllPendingReviews();
     SuccessResponse.data = products;
     return res.status(StatusCodes.CREATED).json(SuccessResponse);
   } catch (error) {
@@ -61,7 +60,7 @@ async function getReviewById(req, res) {
 async function rejected(req, res) {
   try {
     const productId = req.params.id;
-    const updatedProductData = { status: "rejected",adminId: req.user };
+    const updatedProductData = { status: "rejected", adminId: req.user };
     console.log("paramsAdmin", req.user);
     const products = await reviewService.rejected(
       productId,
@@ -74,12 +73,12 @@ async function rejected(req, res) {
     ErrorResponse.error = error;
     return res.status(error.statusCode).json(ErrorResponse);
   }
-} 
+}
 
 async function approved(req, res) {
   try {
     const productId = req.params.id;
-    const updatedProductData = { status: "approved" };
+    const updatedProductData = { status: "approved", adminId: req.user };
     console.log("params", req.params.id);
     const products = await reviewService.approved(
       productId,
@@ -97,9 +96,25 @@ async function approved(req, res) {
 async function getReviewByUserId(req, res) {
   try {
     console.log("params", req.user);
-    const products = await reviewService.getReviewByUserId({
+    const data = {
       userId: req.user,
-    });
+    };
+    const products = await reviewService.getReviewByUserId(data);
+    SuccessResponse.data = products;
+    return res.status(StatusCodes.CREATED).json(SuccessResponse);
+  } catch (error) {
+    console.log(error);
+    ErrorResponse.error = error;
+    return res.status(error.statusCode).json(ErrorResponse);
+  }
+}
+
+async function getReviewByAdminId(req, res) {
+  try {
+    const data = {
+      adminId: req.user,
+    };
+    const products = await reviewService.getReviewByAdminId(data);
     SuccessResponse.data = products;
     return res.status(StatusCodes.CREATED).json(SuccessResponse);
   } catch (error) {
@@ -117,4 +132,5 @@ module.exports = {
   rejected,
   approved,
   getReviewByUserId,
+  getReviewByAdminId,
 };

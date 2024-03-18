@@ -12,7 +12,7 @@ const {
   checkAuth,
 } = require("../../middlewares/auth-request-middleware");
 
-const {createReview, countReview, getAllPendingReviews, getReviewById, rejected, approved, getReviewByUserId} = require("../../controllers/review-controller")
+const {createReview, countReview, getAllPendingReviews, getReviewById, rejected, approved, getReviewByUserId, getReviewByAdminId} = require("../../controllers/review-controller")
 
 const router = express.Router();
 
@@ -52,8 +52,11 @@ router.post("/reject/:id", checkAuth,rejected);
 // /api/v1/approve/:id GET
 router.post("/approve/:id", checkAuth,approved);
 
-// /api/v1/profilereview GET
-router.get("/profilereview", checkAuth,getReviewByUserId);
+// /api/v1/userprofile GET
+router.get("/userprofile", checkAuth,getReviewByUserId);
+
+// /api/v1/adminprofile GET
+router.get("/adminprofile", checkAuth,getReviewByAdminId);
 
 
 

@@ -22,7 +22,8 @@ class ReviewService {
 
   async countReview() {
     try {
-      const review = await this.reviewRepository.countReview();
+      const data = { status: "pending" };
+      const review = await this.reviewRepository.countReview(data);
       return review;
     } catch (error) {
       throw new AppError(
@@ -32,8 +33,9 @@ class ReviewService {
     }
   }
 
-  async getAllPendingReviews(data) {
+  async getAllPendingReviews() {
     try {
+      const data = { status: "pending" };
       const products = await this.reviewRepository.find(data);
       if (!products) {
         throw new AppError("No reviews found", StatusCodes.NOT_FOUND);
@@ -123,6 +125,22 @@ class ReviewService {
     }
   }
 
+  async getReviewByAdminId(data) {
+    try {
+      const products = await this.reviewRepository.find(data);
+      if (!products) {
+        throw new AppError("No reviews found", StatusCodes.NOT_FOUND);
+      }
+      return products;
+    } catch (error) {
+      if (error instanceof AppError) throw error;
+      console.log(error);
+      throw new AppError(
+        "Something went wrong",
+        StatusCodes.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
 }
 
 module.exports = ReviewService;
