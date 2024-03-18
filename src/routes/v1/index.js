@@ -5,14 +5,28 @@ const {
   createAdmin,
 } = require("../../controllers/admin-controller");
 const { usersignin, createUser } = require("../../controllers/user-controller");
-const {getAllProducts, updateProduct} = require("../../controllers/product-controller");
+const {
+  getAllProducts,
+  updateProduct,
+} = require("../../controllers/product-controller");
 
 const {
   validateAuthRequest,
   checkAuth,
 } = require("../../middlewares/auth-request-middleware");
 
-const {createReview, countReview, getAllPendingReviews, getReviewById, rejected, approved, getReviewByUserId, getReviewByAdminId} = require("../../controllers/review-controller")
+const {
+  createReview,
+  countReview,
+  getAllPendingReviews,
+  getReviewById,
+  rejected,
+  approved,
+  getReviewByUserId,
+  getReviewByAdminId,
+} = require("../../controllers/review-controller");
+
+const uploadImage = require("../../controllers/upload-controller");
 
 const router = express.Router();
 
@@ -29,13 +43,13 @@ router.post("/admin/signin", validateAuthRequest, adminsignin);
 router.post("/user/signin", validateAuthRequest, usersignin);
 
 // /api/v1/products POST
-router.get("/products",checkAuth, getAllProducts);
+router.get("/products", checkAuth, getAllProducts);
 
 // /api/v1/products/:id PUT
 router.put("/products/:id", updateProduct);
 
 // /api/v1/review POST
-router.post("/review/:id", checkAuth,createReview);
+router.post("/review/:id", checkAuth, createReview);
 
 // /api/v1/review/count GET
 router.get("/review/count", countReview);
@@ -47,17 +61,18 @@ router.get("/review/pending", getAllPendingReviews);
 router.get("/review/:id", getReviewById);
 
 // /api/v1/reject/:id GET
-router.post("/reject/:id", checkAuth,rejected);
+router.post("/reject/:id", checkAuth, rejected);
 
 // /api/v1/approve/:id GET
-router.post("/approve/:id", checkAuth,approved);
+router.post("/approve/:id", checkAuth, approved);
 
 // /api/v1/userprofile GET
-router.get("/userprofile", checkAuth,getReviewByUserId);
+router.get("/userprofile", checkAuth, getReviewByUserId);
 
 // /api/v1/adminprofile GET
-router.get("/adminprofile", checkAuth,getReviewByAdminId);
+router.get("/adminprofile", checkAuth, getReviewByAdminId);
 
-
+// /api/v1/upload POST
+router.post("/upload", uploadImage);
 
 module.exports = router;
