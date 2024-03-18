@@ -5,8 +5,8 @@ const AdminRepository = require("../../repositories/admin-repository");
 const UserRepository = require("../../repositories/user-repository");
 const AppError = require("../errors/app-error");
 
-const dotenv = require("dotenv"); 
-dotenv.config(); 
+const dotenv = require("dotenv");
+dotenv.config();
 
 const adminRepository = new AdminRepository();
 const userRepository = new UserRepository();
@@ -47,14 +47,13 @@ async function isAuthenticated(token) {
       throw new AppError("Missing jwt token", StatusCodes.BAD_REQUEST);
     }
     const response = verifyToken(token);
-    console.log("yahan",response);
     const admin = await adminRepository.get(response.id);
     //console.log(admin)
     if (admin) {
       return admin.id;
     } else {
       const user = await userRepository.get(response.id);
-      console.log("yahan pe",user)
+      //console.log("yahan pe",user)
       if (user) {
         return user.id;
       } else {

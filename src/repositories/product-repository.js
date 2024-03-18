@@ -7,9 +7,9 @@ class ProductRepository extends CrudRepository {
   }
   async updateProduct(productId, updatedProductData) {
     try {
-      console.log(productId, updatedProductData);
-      console.log("->", productId);
-      console.log("->", updatedProductData);
+      //console.log(productId, updatedProductData);
+      //console.log("->", productId);
+      //console.log("->", updatedProductData);
       const updatedProduct = await Product.findOneAndUpdate(
         { id:productId },
         updatedProductData,

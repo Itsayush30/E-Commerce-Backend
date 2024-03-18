@@ -10,7 +10,7 @@ class AdminService {
 
   async create(data) {
     try {
-      console.log(data);
+      //console.log(data);
       const admin = await this.adminRepository.create(data);
       return admin;
     } catch (error) {
@@ -31,7 +31,7 @@ class AdminService {
         );
       }
       const passwordMatch = checkPassword(data.password, admin.password);
-      console.log("passwordMatch", passwordMatch);
+      //console.log("passwordMatch", passwordMatch);
       if (!passwordMatch) {
         throw new AppError("Invalid Password", StatusCodes.BAD_REQUEST);
       }

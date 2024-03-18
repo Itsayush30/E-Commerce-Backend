@@ -30,7 +30,7 @@ async function checkAuth(req, res, next) {
   try {
     const response = await isAuthenticated(req.headers["x-access-token"]);
     if (response) {
-      console.log("auth", response);
+      //console.log("auth", response);
       req.user = response; // setting the user id in the req object
       next();
     }

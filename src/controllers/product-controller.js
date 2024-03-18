@@ -19,9 +19,9 @@ const updateProduct = async (req, res) => {
   const productId = req.params.id;
   const updatedProductData = req.body;
 
-  console.log(productId, updatedProductData);
-  console.log("->", productId);
-  console.log("->", updatedProductData);
+  //console.log(productId, updatedProductData);
+  //console.log("->", productId);
+  // console.log("->", updatedProductData);
 
   try {
     const response = await productService.updateProduct(

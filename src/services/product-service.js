@@ -30,7 +30,7 @@ class ProductService {
         productId,
         updatedProductData
       );
-      console.log("here",products);
+      //console.log("here",products);
       if (!products) {
         throw new AppError("No products found", StatusCodes.NOT_FOUND);
       }

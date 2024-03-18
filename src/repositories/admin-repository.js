@@ -8,7 +8,7 @@ class AdminRepository extends CrudRepository {
 
   async getAdminByEmail(email) {
     try {
-      console.log(email);
+      //console.log(email);
       const result = await Admin.findOne({email});
       return result;
     } catch (error) {

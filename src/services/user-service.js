@@ -14,7 +14,7 @@ class UserService {
 
   async create(data) {
     try {
-      console.log(data);
+      //console.log(data);
       const user = await this.userRepository.create(data);
       return user;
     } catch (error) {
@@ -35,7 +35,7 @@ class UserService {
         );
       }
       const passwordMatch = checkPassword(data.password, user.password);
-      console.log("passwordMatch", passwordMatch);
+      //console.log("passwordMatch", passwordMatch);
       if (!passwordMatch) {
         throw new AppError("Invalid Password", StatusCodes.BAD_REQUEST);
       }

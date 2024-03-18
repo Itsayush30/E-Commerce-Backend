@@ -1,16 +1,13 @@
 const express = require("express");
 const connect = require("./config/database");
 const apiRoutes = require("./routes");
-const cors = require("cors"); // Import the cors middleware
+const cors = require("cors");
 const dotenv = require("dotenv");
 dotenv.config();
 const PORT = process.env.PORT;
 const PRODUCT_URL = process.env.PRODUCT_URL;
 
-console.log(process.env.PORT);
-
-// const fetch = require("node-fetch"); // for making HTTP requests
-const Product = require("./models/product"); // Import the Product model
+const Product = require("./models/product");
 
 async function fetchAndStoreProducts(url) {
   try {
@@ -18,7 +15,7 @@ async function fetchAndStoreProducts(url) {
     const products = await response.json();
 
     for (const product of products) {
-      // Check if the product already exists in the database
+      //  if the product already exists
       const existingProduct = await Product.findOne({ id: product.id });
 
       if (existingProduct) {
@@ -43,7 +40,6 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Add CORS middleware to allow requests from all origins
 app.use(cors());
 
 app.use("/api", apiRoutes);
@@ -52,7 +48,6 @@ app.listen(PORT, async () => {
   console.log(`Express server started at ${PORT}`);
   try {
     await connect();
-    console.log(process.env.PORT);
     console.log("MongoDB connected");
     await fetchAndStoreProducts(PRODUCT_URL);
   } catch (error) {

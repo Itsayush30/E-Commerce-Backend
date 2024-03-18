@@ -18,7 +18,7 @@ class ReviewRepository extends CrudRepository {
 
   async find(data) {
     try {
-      console.log("repo", data);
+      //console.log("repo", data);
       const result = await Review.find(data);
       return result;
     } catch (error) {
@@ -29,7 +29,7 @@ class ReviewRepository extends CrudRepository {
 
   async updateStatus(productId, updatedProductData) {
     try {
-      console.log("repo");
+      //console.log("repo");
       const result = await Review.findOneAndUpdate(
         { id: productId },
         updatedProductData,

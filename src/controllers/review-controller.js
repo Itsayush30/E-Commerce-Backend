@@ -5,7 +5,7 @@ const reviewService = new ReviewService();
 
 const createReview = async (req, res) => {
   try {
-    console.log("HERE", req.body);
+    //console.log("HERE", req.body);
     const response = await reviewService.create({
       ...req.body,
       userId: req.user,
@@ -46,7 +46,7 @@ async function getAllPendingReviews(req, res) {
 
 async function getReviewById(req, res) {
   try {
-    console.log("params", req.params);
+    //console.log("params", req.params);
     const products = await reviewService.getReviewById(req.params);
     SuccessResponse.data = products;
     return res.status(StatusCodes.CREATED).json(SuccessResponse);
@@ -61,7 +61,7 @@ async function rejected(req, res) {
   try {
     const productId = req.params.id;
     const updatedProductData = { status: "rejected", adminId: req.user };
-    console.log("paramsAdmin", req.user);
+    //console.log("paramsAdmin", req.user);
     const products = await reviewService.rejected(
       productId,
       updatedProductData
@@ -79,7 +79,7 @@ async function approved(req, res) {
   try {
     const productId = req.params.id;
     const updatedProductData = { status: "approved", adminId: req.user };
-    console.log("params", req.params.id);
+    //console.log("params", req.params.id);
     const products = await reviewService.approved(
       productId,
       updatedProductData
@@ -95,7 +95,7 @@ async function approved(req, res) {
 
 async function getReviewByUserId(req, res) {
   try {
-    console.log("params", req.user);
+    //console.log("params", req.user);
     const data = {
       userId: req.user,
     };

@@ -9,7 +9,7 @@ class ReviewService {
 
   async create(data) {
     try {
-      console.log("data", data);
+      //console.log("data", data);
       const review = await this.reviewRepository.create(data);
       return review;
     } catch (error) {
