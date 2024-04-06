@@ -14,7 +14,7 @@ services:
     depends_on:
       - mongodb
     ports:
-      - "3000:3000"
+      - "3000:3344"
     environment:
       MONGO_URL: "mongodb://e_com_mongodb:27017"
 
