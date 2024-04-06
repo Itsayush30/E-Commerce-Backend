@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const connect = async () => {
-  await mongoose.connect("mongodb://localhost/plypicker");
+  await mongoose.connect("mongodb://e_com_mongodb/plypicker");
 };
 
 module.exports = connect;
